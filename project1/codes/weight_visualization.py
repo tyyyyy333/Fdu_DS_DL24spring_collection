@@ -52,10 +52,13 @@ def visualize(model):
             W = layer.params['W']
             num_kernels = W.shape[0]
             in_channels = W.shape[1]
+            
             kernel_size = W.shape[2]
 
             for i in range(num_kernels):
                 fig, ax = plt.subplots(1, in_channels, figsize=(15, 5))
+                if in_channels == 1:
+                    ax = [ax]
                 for c in range(in_channels):
                     ax[c].imshow(W[i, c, :, :], cmap='gray')
                     ax[c].axis('off')

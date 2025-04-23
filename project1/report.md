@@ -1,7 +1,5 @@
 # REPORT : “Neural Network and Deep Learning”
 
-## 23300200022 滕勇功
-
 ### Due to 8:00 AM, May 1, 2025.
 
 model & codes & dataset link :

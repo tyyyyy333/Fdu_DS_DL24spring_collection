@@ -84,6 +84,16 @@ Here is an scratch of the model:
 * Batch Size: `256`
 * Device: `CUDA`
 
+
+> - Different activation functions were considered during model design. While ReLU was used throughout the majority of the network due to its computational simplicity and strong empirical performance in deep convolutional architectures, Sigmoid activation was specifically employed in the attention mechanism(SA/SE/unit_transform)) This choice was intentional: Sigmoid maps inputs to a [0, 1] range, making it particularly suitable for generating soft attention masks that act as multiplicative gates.
+> - Although other activations such as Leaky ReLU or GELU were not ultimately adopted, their use was considered in early design discussions. ReLU was retained for its **effective** gradient propagation and **sparse** activation, both of which contribute to stable and efficient training.
+
+> - Different loss functions and regularization techniques were carefully considered. Although we ultimately adopted Cross-Entropy Loss with Label Smoothing (ε = 0.1), this choice was motivated by its proven effectiveness in classification tasks. Cross-Entropy remains the standard for multi-class classification due to its probabilistic interpretability and gradient stability. To further enhance its generalization ability, label smoothing was introduced, which prevents the model from becoming overconfident in predictions and encourages better calibration.
+> - As for regularization, we applied Weight Decay (1e-3) to penalize large weights and reduce overfitting, and adopted Data Augmentation techniques such as random crop and horizontal flip to enrich the training distribution. These methods, though simple, significantly contributed to performance robustness and generalization.
+
+> - The training process further incorporated an AdamW optimizer during the early epochs (epoch ≤ 0.8 * total_epochs), switching to SGD with momentum (0.9) later to stabilize convergence. An ExponentialLR scheduler with decay rate γ = 0.96 controlled the learning rate across 70 epochs, with a batch size of 256. All models were trained and evaluated on CUDA-enabled GPUs to ensure efficiency.
+
+
 ---
 
 ### 1.4 Training Results
